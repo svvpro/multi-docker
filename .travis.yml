@@ -4,7 +4,7 @@ before_install:
     - docker build -t svvpro/multi-docker -f ./client/Dockerfile ./client
 
 script: 
-    - docker run -e CI=true svvpro/multi-docker npm run test -- --coverage
+    - docker run -e CI=true svvpro/multi-docker npm test
 
 after_success:
     - docker build -t svvpro/multi-client ./client

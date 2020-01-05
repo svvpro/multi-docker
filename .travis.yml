@@ -1,0 +1,20 @@
+language: generic
+
+before_install:
+    - docker build -t svvpro/multi-docker -f ./client/Dockerfile ./client
+
+script: 
+    - docker run -e CI=true svvpro/multi-docker npm test
+
+after_success:
+    - docker build -t svvpro/multi-client ./client
+    - docker build -t svvpro/multi-nginx ./nginx
+    - docker build -t svvpro/multi-server ./server
+    - docker build -t svvpro/multi-worker ./worker
+    #Log in to the Docker CLI
+    - echo "$DOCKER_PASSWORD" | docker  login -u "$DOCKER_ID" --password-stdin
+    #Take those images and push them to docker hub
+    - docker push svvpro/multi-client
+    - docker push svvpro/multi-nginx
+    - docker push svvpro/multi-server
+    - docker push svvpro/multi-worker

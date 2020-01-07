@@ -1,7 +1,10 @@
 language: generic
+sudo: required
+service:
+    - docker
 
 before_install:
-    - docker build -t svvpro/multi-docker -f ./client/Dockerfile ./client
+    - docker build -t svvpro/multi-docker -f ./client/Dockerfile.dev ./client
 
 script: 
     - docker run -e CI=true svvpro/multi-docker npm run test

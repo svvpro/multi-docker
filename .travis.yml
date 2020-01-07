@@ -10,14 +10,14 @@ script:
     - docker run -e CI=true svvpro/multi-docker npm run test
 
 after_success:
-    - docker build -t svvpro/multi-client ./client
-    - docker build -t svvpro/multi-nginx ./nginx
-    - docker build -t svvpro/multi-server ./server
-    - docker build -t svvpro/multi-worker ./worker
+    - docker build -t svvone/multi-client ./client
+    - docker build -t svvone/multi-nginx ./nginx
+    - docker build -t svvone/multi-server ./server
+    - docker build -t svvone/multi-worker ./worker
     #Log in to the Docker CLI
     - echo "$DOCKER_PASSWORD" | docker  login -u "$DOCKER_ID" --password-stdin
     #Take those images and push them to docker hub
-    - docker push svvpro/multi-client
-    - docker push svvpro/multi-nginx
-    - docker push svvpro/multi-server
-    - docker push svvpro/multi-worker
+    - docker push svvone/multi-client
+    - docker push svvone/multi-nginx
+    - docker push svvone/multi-server
+    - docker push svvone/multi-worker
